@@ -1,4 +1,4 @@
-package src.library_system;
+package Uppgifter.library_system.src;
 
 import java.util.ArrayList;
 import java.util.Scanner;
