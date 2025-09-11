@@ -59,7 +59,8 @@ public class LibrarySystem {
 
 			int bookIndex;
 			String borrowerName, title, author, isbn;
-			switch (choice) {
+			// add useless comment to test
+            switch (choice) {
 				case 1:
 					displayAllBooks(bookTitles, bookAuthors, bookISBN, bookAvailable);
 					break;
