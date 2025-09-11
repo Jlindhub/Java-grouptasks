@@ -184,17 +184,43 @@ public class LibrarySystem {
 		return true;
 	}
 
-	public static boolean returnBook(ArrayList<Boolean> available, ArrayList<String> borrowers, ArrayList<String> borrowedBooks, ArrayList<String> isbnNumbers, String isbn) {
-		int isbnIndex = isbnNumbers.indexOf(isbn);
-		int borrowedIndex = borrowedBooks.indexOf(isbn);
-		if (isbnIndex < 0 || borrowedIndex < 0) {
-			return false;
-		}
-		borrowedBooks.remove(borrowedIndex);
-		borrowers.remove(borrowedIndex);
-		available.set(isbnIndex, true);
-		return true;
-	}
+    public static boolean returnBook(ArrayList<Boolean> available, ArrayList<String> borrowers, ArrayList<String> borrowedBooks, ArrayList<String> isbnNumbers, String bookToReturnISBN) {
+
+        final int index = isbnNumbers.indexOf(bookToReturnISBN);
+
+        if (index < 0) {
+            System.out.println("Book doesn't exist. Operation failed.");
+            return false;
+        }
+
+        if (available.get(index) == true)
+        {
+            System.out.println("Book already available. This is not intended.");
+            return false;
+        }
+
+        if (borrowedBooks.size() != borrowers.size())
+        {
+            System.out.println("BorrowedNames and BorrowedBooks array size index doesn't match. This is not intended.");
+            return false;
+        }
+
+        final int finalCheckIndex = borrowedBooks.indexOf(bookToReturnISBN);
+
+        if (finalCheckIndex < 0)
+        {
+            System.out.println("This book ISBN doesn't exist in borrowedBook. This is not intended.");
+            return false;
+        }
+
+        System.out.printf("%nBook with isbn %s borrowed by %s has been returned successfully.%n%n", borrowedBooks.get(finalCheckIndex), borrowers.get(finalCheckIndex));
+
+        available.set(index, true);
+        borrowedBooks.remove(finalCheckIndex);
+        borrowers.remove(finalCheckIndex);
+
+        return true;
+    }
 
 	public static void displayBorrowedBooks(ArrayList<String> borrowers, ArrayList<String> borrowedBooks) {
 		for (int index = 0; index < borrowers.size(); index++) {
