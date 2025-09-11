@@ -87,6 +87,9 @@ public class LibrarySystem {
 				case 5:
 					displayLibraryStatistics(bookTitles, bookAvailable,userNames);
                     break;
+                case 6:
+                    displayBorrowedBooks(borrowerNames, borrowedBooks);
+                    break;
 				case 0:
 					exit = true;
 					break;
@@ -103,6 +106,7 @@ public class LibrarySystem {
 			  3. Låna bok
 			  4. Återlämna bok
 			  5. Visa statistik
+			  6. Visa lånade böcker
 			  0. Avsluta
 			"""
 		);
@@ -225,7 +229,7 @@ public class LibrarySystem {
 
 	public static void displayBorrowedBooks(ArrayList<String> borrowers, ArrayList<String> borrowedBooks) {
 		for (int index = 0; index < borrowers.size(); index++) {
-			System.out.printf("%-20s has borrowed: %s", borrowers.get(index), borrowedBooks.get(index));
+			System.out.printf("%s has borrowed book with isbn %s%n", borrowers.get(index), borrowedBooks.get(index));
 		}
 	}
 
