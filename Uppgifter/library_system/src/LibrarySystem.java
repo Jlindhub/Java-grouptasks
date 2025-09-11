@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.System.*;
 
-public class LibrarySystem {
+public final class LibrarySystem {
 	/*Sebastian_BEGIN*/
 	public static void main(String[] args) {
+// these four should always be the same size and order, things will likely break if they are not
 		ArrayList<String>  bookTitles    = new ArrayList<>();
 		ArrayList<String>  bookAuthors   = new ArrayList<>();
 		ArrayList<String>  bookISBN      = new ArrayList<>();
 		ArrayList<Boolean> bookAvailable = new ArrayList<>();
 
+// these four may vary in length, and an index value from one is not guaranteed to work in another
 		ArrayList<String>  borrowerNames = new ArrayList<>();
 		ArrayList<String>  borrowedBooks = new ArrayList<>();
 		ArrayList<String>  userNames     = new ArrayList<>();
@@ -58,7 +60,7 @@ public class LibrarySystem {
 			sc.nextLine(); // Takes care of trailing newline
 
 			int bookIndex;
-			String borrowerName, title, author, isbn;
+			String borrowerName, borrowerPhone, title, author, isbn, search;
             switch (choice) {
 				case 1:
 					displayAllBooks(bookTitles, bookAuthors, bookISBN, bookAvailable);
@@ -75,8 +77,16 @@ public class LibrarySystem {
 				case 3:
 					out.print("Låntagarens namn: ");
 					borrowerName = sc.nextLine();
+					if (!userNames.contains(borrowerName)) {
+						out.printf("Bara registrerade medlemmar kan låna böcker!%n");
+						break;
+					}
 					out.print("Bokens index: ");
 					bookIndex = Integer.parseInt(sc.nextLine());
+					if(bookIndex >= bookISBN.size() || bookIndex < 0) {
+						out.printf("Boken finns inte i biblioteket!%n");
+						break;
+					}
 					borrowBook(bookAvailable, borrowerNames, borrowedBooks, bookIndex, borrowerName, bookISBN);
 					break;
 				case 4:
@@ -85,8 +95,41 @@ public class LibrarySystem {
 					returnBook(bookAvailable, borrowerNames, borrowedBooks, bookISBN, isbn);
 					break;
 				case 5:
+					displayBorrowedBooks(borrowerNames, borrowedBooks);
+					break;
+				case 6:
+					out.print("Namn: ");
+					borrowerName = sc.nextLine();
+					out.print("Telefonnr: ");
+					borrowerPhone = sc.nextLine();
+					registerUser(userNames, phoneNumbers, borrowerName, borrowerPhone);
+					break;
+				case 7:
+					displayAllUsers(userNames, phoneNumbers);
+					break;
+				case 8:
+					out.print("Sök användare: ");
+					search = sc.nextLine();
+					searchUser(userNames, search);
+					break;
+				case 9:
+					out.print("Sök bok: ");
+					search = sc.nextLine();
+					bookIndex = searchBook(bookTitles, bookAuthors, search);
+					if (bookIndex >= 0){
+						out.printf(
+							"%d: %s by %s, ISBN: %s, %s%n",
+							bookIndex,
+							bookTitles.get(bookIndex),
+							bookAuthors.get(bookIndex),
+							bookISBN.get(bookIndex),
+							bookAvailable.get(bookIndex) ? "INNE" : "UTLÅNAD"
+						);
+					}
+					break;
+				case 10:
 					displayLibraryStatistics(bookTitles, bookAvailable,userNames);
-                    break;
+					break;
 				case 0:
 					exit = true;
 					break;
@@ -102,16 +145,15 @@ public class LibrarySystem {
 			  2. Lägg till bok
 			  3. Låna bok
 			  4. Återlämna bok
-			  5. Visa statistik
+			  5. Visa lånade böcker
+			  6. Registrera ny medlem
+			  7. Visa alla medlemmar
+			  8. Sök medlem
+			  9. Sök bok
+			 10. Visa statistik
 			  0. Avsluta
 			"""
 		);
-	}
-
-	public static void displayBookMenu() {
-	}
-
-	public static void displayLoanMenu() {
 	}
 	/*Sebastian_END*/
 
@@ -161,7 +203,7 @@ public class LibrarySystem {
 			return titles.indexOf(searchTerm);
 		}
 
-		System.out.println("No book, or author with the title/name of : " + searchTerm + " exists in the library");
+		out.printf("No book, or author with the title/name of : %s exists in the library.%n", searchTerm);
 		return -1;
 	}
 	/**
@@ -225,7 +267,7 @@ public class LibrarySystem {
 
 	public static void displayBorrowedBooks(ArrayList<String> borrowers, ArrayList<String> borrowedBooks) {
 		for (int index = 0; index < borrowers.size(); index++) {
-			System.out.printf("%-20s has borrowed: %s", borrowers.get(index), borrowedBooks.get(index));
+			System.out.printf("%-20s has borrowed: %s%n", borrowers.get(index), borrowedBooks.get(index));
 		}
 	}
 
@@ -237,12 +279,12 @@ public class LibrarySystem {
             String newUserPhoneNumber
     ) {
         if (userNames.contains(newUserName)) {
-            System.out.printf("Error! %s is already registered!", newUserName);
+            System.out.printf("Error! %s is already registered!%n", newUserName);
             return;
         }
         userNames.add(newUserName);
         phoneNumbers.add(newUserPhoneNumber);
-        System.out.printf("Registered new user as %s (%s)!", newUserName, newUserPhoneNumber);
+        System.out.printf("Registered new user as %s (%s)!%n", newUserName, newUserPhoneNumber);
     }
 
     public static void displayAllUsers(ArrayList<String> userNames, ArrayList<String> phoneNumbers) {
