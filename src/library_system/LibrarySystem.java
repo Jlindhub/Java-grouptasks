@@ -203,30 +203,32 @@ public class LibrarySystem {
 	}
 
 	// Användarhantering - Alexander
-	public static void registerUser(
-		ArrayList<String> userNames,
-		ArrayList<String> phoneNumbers,
-		String newUserName,
-		String newUserPhoneNumber
-	) {
-		userNames.add(newUserName);
-		phoneNumbers.add(newUserPhoneNumber);
-		System.out.printf("Registered new user as %s (%s)!", newUserName, newUserPhoneNumber);
-	}
+    public static void registerUser(
+            ArrayList<String> userNames,
+            ArrayList<String> phoneNumbers,
+            String newUserName,
+            String newUserPhoneNumber
+    ) {
+        if (userNames.contains(newUserName)) {
+            System.out.printf("Error! %s is already registered!", newUserName);
+            return;
+        }
+        userNames.add(newUserName);
+        phoneNumbers.add(newUserPhoneNumber);
+        System.out.printf("Registered new user as %s (%s)!", newUserName, newUserPhoneNumber);
+    }
 
-	public static void displayAllUsers(ArrayList<String> userNames, ArrayList<String> phoneNumbers) {
-		for (int i = 0; i < userNames.size(); i++)
-			System.out.printf("%s - %s", userNames.get(i), phoneNumbers.get(i));
-	}
+    public static void displayAllUsers(ArrayList<String> userNames, ArrayList<String> phoneNumbers) {
+        for (int i = 0; i < userNames.size(); i++)
+            System.out.printf("%s - %s\n", userNames.get(i), phoneNumbers.get(i));
+    }
 
-	// searchUser -> getUserID
-	public static int getUserID(ArrayList<String> userNames, String search) {
-		for (int i = 0; i < userNames.size(); i++)
-			if (userNames.get(i).equals(search))
-				return i;
-
-		return -1;
-	}
+    public static void searchUser(ArrayList<String> userNames, String search) {
+        System.out.printf("User(s) matching search term \"%s\":\n", search);
+        for (int i = 0; i < userNames.size(); i++)
+            if (userNames.get(i).contains(search))
+                System.out.printf("%s\n", userNames.get(i));
+    }
 
 	// Från James
 	public static int countAvailableBooks(ArrayList<Boolean> Available) {
