@@ -1,4 +1,4 @@
-package grupp.library_system;
+package src.library_system;
 
 import java.util.ArrayList;
 import java.util.Scanner;
