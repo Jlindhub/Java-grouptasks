@@ -86,6 +86,7 @@ public class LibrarySystem {
 					break;
 				case 5:
 					displayLibraryStatistics(bookTitles, bookAvailable,userNames);
+                    break;
 				case 0:
 					exit = true;
 					break;
