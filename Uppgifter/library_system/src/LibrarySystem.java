@@ -1,5 +1,3 @@
-package Uppgifter.library_system.src;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.System.*;
