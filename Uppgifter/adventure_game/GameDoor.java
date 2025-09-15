@@ -14,7 +14,7 @@ public class GameDoor {
 		return keyword;
 	}
 
-	public char getKey() {
+    public char getKey() {
 		return key;
 	}
 
