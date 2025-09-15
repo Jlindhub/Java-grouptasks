@@ -6,9 +6,9 @@ public class GameItem {
 		return name;
 	}
 
-    public String readItem() {
-        return description;
-    }
+	public String readItem() {
+		return description;
+	}
 
 	public GameItem(String name, String description) {
 		this.name = name;

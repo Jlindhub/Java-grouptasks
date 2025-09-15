@@ -19,16 +19,16 @@ public class Main {
 
     // The Id is always the first
     private GameCharacter player() {
-        return characters.getFirst();
+			return characters.getFirst();
     }
 
     public Main(ArrayList<GameCharacter> characters, ArrayList<GameRoom> rooms, ArrayList<GameItem> items) {
-        this.characters = characters;
-        this.rooms = rooms;
-        this.items = items;
+			this.characters = characters;
+			this.rooms = rooms;
+			this.items = items;
     }
 
     public static void main(String[] args) {
-        //Main game = new Main();
+			//Main game = new Main();
 	}
 }
