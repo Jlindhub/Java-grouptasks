@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
  * <h6>Puzzle game, inspired by Colossal Cave Adventure and Myst</h6>
  * <p>
@@ -28,7 +27,12 @@ public class Main {
 			this.items = items;
     }
 
+		public void run() {
+
+		}
+
     public static void main(String[] args) {
 			//Main game = new Main();
+			//game.run();
 	}
 }
