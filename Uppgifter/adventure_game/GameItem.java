@@ -1,5 +1,3 @@
-package dag_6.adventure_game;
-
 public class GameItem {
 	private String name;
 	private String description;

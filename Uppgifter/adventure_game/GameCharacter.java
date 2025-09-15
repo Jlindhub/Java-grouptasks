@@ -1,5 +1,3 @@
-package dag_6.adventure_game;
-
 import java.util.ArrayList;
 
 /**

@@ -1,5 +1,3 @@
-package dag_6.adventure_game;
-
 /**
  * A door consists of a Room which is its destination, and a directional keyword which is its trigger.
  */
