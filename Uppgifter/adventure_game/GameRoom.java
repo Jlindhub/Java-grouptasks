@@ -12,6 +12,15 @@ public class GameRoom {
 		return description;
 	}
 
+    public GameItem getItem(String itemName) {
+        for (var item : items) {
+            if (item.name().equals(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
 	public GameRoom exit(String direction) {
 		for (var exit : exits) {
 			if (exit.getKeyword().equals(direction) || exit.getKeyword().charAt(0) == exit.getKey()) {
