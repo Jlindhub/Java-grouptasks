@@ -5,26 +5,33 @@ import java.util.ArrayList;
  * The game consists of<br>
  * • {@link GameCharacter characters}<br>
  * • {@link GameRoom rooms}<br>
- * • {@link GameItem items}<br>
+ * • {@link GameObject items}<br>
  * The player character is the Id of the player by which they move through and interact with the world. A room has a
  * number of exits accessed by directional keywords, and items are things in the world that can be used by or carried
  * by characters.
  * </p>
+ *
+ * Redesign idea:<br>
+ * All things are... things. GameObject implements this concept. All game objects can hold other game objects in a
+ * dynamic list of contents. Rooms are a type of game object that have doors and can not be put into another object's contents.
+ * A door is not really a game object, they don't have contents, but hold a reference to a room and a keyword invoked for transit.
+ * An object that can use doors to move itself from the contents of one room to the contents of another room is called a mob.
+ * The player controls one such mob, and its contents we call inventory.
  */
 public class Main {
-	private ArrayList<GameCharacter> characters;
-	private ArrayList<GameRoom> rooms;
-	private ArrayList<GameItem> items;
+	private final ArrayList<GameCharacter> characters;
+	private final ArrayList<GameRoom> rooms;
+	private final ArrayList<GameObject> items;
 
     // The Id is always the first
     private GameCharacter player() {
 			return characters.getFirst();
     }
 
-    public Main(ArrayList<GameCharacter> characters, ArrayList<GameRoom> rooms, ArrayList<GameItem> items) {
-			this.characters = characters;
-			this.rooms = rooms;
-			this.items = items;
+    public Main() {
+			this.characters = new ArrayList<GameCharacter>();
+			this.rooms = new ArrayList<GameRoom>();
+			this.items = new ArrayList<GameObject>();
     }
 
 		public void run() {
@@ -37,12 +44,26 @@ public class Main {
 			of the cardinal directions (east, west, north, and south).
 			A stone plinth stands in the middle of the room.
 			""";
-			//var roomExit = new GameDoor();
-			/* Hmm, now I have to refer to another already made room... before I can make the exit
-			 * to this room...??? These parts are all dependent on each other!
-			*/
-			//GameRoom startingArea = new GameRoom();
-			//Main game = new Main();
-			//game.run();
+			var name = "Nexus";
+			GameRoom startingArea = new GameRoom(name, description);
+			startingArea.addDoor(
+				new GameDoor(
+					new GameRoom(
+						"Kitchen",
+						"""
+						This kitchen is rather cramped. Dirty dishes stand piled high
+						on every surface.
+						
+						The door from which you came is west.
+						"""
+					).addDoor(new GameDoor(startingArea, "West")),
+					"East"
+				)
+			);
+			GameCharacter player = new GameCharacter("Wanderer", "You have no memories of this body", startingArea);
+			Main game = new Main();
+			game.characters.add(player);
+			game.rooms.add(startingArea);
+			game.run();
 	}
 }
