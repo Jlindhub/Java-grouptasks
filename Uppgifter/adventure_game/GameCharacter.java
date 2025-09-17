@@ -24,7 +24,7 @@ public class GameCharacter extends GameObject {
 			location.takeItem(coveted);
 		}
 	}
-
+// TODO: ...shit, this needs to update the contents of the location... or should characters be separate from items?
 	public GameObject setLocation(GameRoom location) {
 		this.location = location;
 		return this;
