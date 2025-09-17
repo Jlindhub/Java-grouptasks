@@ -33,7 +33,10 @@ public class Main {
 			this.rooms = new ArrayList<GameRoom>();
 			this.items = new ArrayList<GameObject>();
     }
-
+// TODO: Implement some kind of helper functions to simplify adding rooms, characters and items to the game
+// TODO: Implement player verbs and input prompt
+// TODO: Implement a game loop which displays the name and description of the player's current location
+// as well as the input prompt
 		public void run() {
 
 		}
