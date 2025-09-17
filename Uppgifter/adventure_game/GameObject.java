@@ -3,6 +3,7 @@ import java.util.ArrayList;
 /**
  * All things are game objects. Game objects hold a dynamic list of game objects called contents.
  */
+// TODO: Oops... this should not be abstract??
 public abstract class GameObject {
 	private String name;
 	private String description;
