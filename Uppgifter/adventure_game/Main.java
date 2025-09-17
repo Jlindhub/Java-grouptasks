@@ -23,50 +23,52 @@ public class Main {
 	private final ArrayList<GameRoom> rooms;
 	private final ArrayList<GameObject> items;
 
-    // The Id is always the first
-    private GameCharacter player() {
-			return characters.getFirst();
-    }
+// The Id is always the first
+	private GameCharacter player() {
+		return characters.getFirst();
+	}
 
-    public Main() {
-			this.characters = new ArrayList<GameCharacter>();
-			this.rooms = new ArrayList<GameRoom>();
-			this.items = new ArrayList<GameObject>();
-    }
+	public Main() {
+		this.characters = new ArrayList<GameCharacter>();
+		this.rooms = new ArrayList<GameRoom>();
+		this.items = new ArrayList<GameObject>();
+	}
 // TODO: Implement some kind of helper functions to simplify adding rooms, characters and items to the game
 // TODO: Implement player verbs and input prompt
 // TODO: Implement a game loop which displays the name and description of the player's current location
 // as well as the input prompt
-		public void run() {
+	public void run() {
 
-		}
+	}
 
-    public static void main(String[] args) {
-			var description = """
+	public static void main(String[] args) {
+		var description =
+			"""
 			A large circular room with non-descript wooden doors in each
 			of the cardinal directions (east, west, north, and south).
 			A stone plinth stands in the middle of the room.
-			""";
-			var name = "Nexus";
-			GameRoom startingArea = new GameRoom(name, description);
-			startingArea.addDoor(
-				new GameDoor(
-					new GameRoom(
-						"Kitchen",
-						"""
-						This kitchen is rather cramped. Dirty dishes stand piled high
-						on every surface.
-						
-						The door from which you came is west.
-						"""
-					).addDoor(new GameDoor(startingArea, "West")),
-					"East"
-				)
-			);
-			GameCharacter player = new GameCharacter("Wanderer", "You have no memories of this body", startingArea);
-			Main game = new Main();
-			game.characters.add(player);
-			game.rooms.add(startingArea);
-			game.run();
+			"""
+		;
+		var name = "Nexus";
+		GameRoom startingArea = new GameRoom(name, description);
+		startingArea.addDoor(
+			new GameDoor(
+				new GameRoom(
+					"Kitchen",
+					"""
+					This kitchen is rather cramped. Dirty dishes stand piled high
+					on every surface.
+					
+					The door from which you came is west.
+					"""
+				).addDoor(new GameDoor(startingArea, "West")),
+				"East"
+			)
+		);
+		GameCharacter player = new GameCharacter("Wanderer", "You have no memories of this body", startingArea);
+		Main game = new Main();
+		game.characters.add(player);
+		game.rooms.add(startingArea);
+		game.run();
 	}
 }
